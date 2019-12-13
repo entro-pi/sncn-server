@@ -1,8 +1,17 @@
 module Main where
 
+import Graphics.UI.Gtk
+
 where Main = do
-import Graphics
-	input <- getLine;
-	putStr input
-	putStr input
+	initGUI
+
+	builder <- builderNew
+	builderAddFromFile builder "server.glade"
+	window <- builderGetObject builder castToWindow "mainwindow"
+	exitbutton <- builderGetObject builder castToButton "b2"
+
+	on exitButton buttonActivated $ do
+					putStrLn "Button Pressed"
+					objectDestroy window
+	widgetShowAll window
 
